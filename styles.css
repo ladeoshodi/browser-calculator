@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-container {
+    border: 2px solid black;
+    width: 700px;
+    aspect-ratio: 1;
+}
+
+/* adjust container size based on screen size */
+@media screen and (max-width: 450px) {
+    .calculator-container {
+        width: 300px;
+    }
+}
