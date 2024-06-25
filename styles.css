@@ -48,6 +48,13 @@ body {
     grid-area: cancel;
     background-color: rgb(249, 48, 48);
 }
+.cancel:hover {
+    background-color: rgb(245, 79, 79);
+}
+
+.cancel:active {
+    background-color: rgb(246, 109, 109);
+}
 
 .pos-neg {
     grid-area: pos-neg;
@@ -64,9 +71,25 @@ body {
     background-color: silver
 }
 
+.pos-neg:hover, .dot:hover, .equals:hover {
+    background-color: rgb(160, 159, 159)
+}
+
+.pos-neg:active, .dot:active, .equals:active {
+    background-color: rgb(131, 131, 131)
+}
+
 /* Operators styling */
 .operator {
     background-color: rgb(255, 166, 0);
+}
+
+.operator:hover {
+    background-color: rgb(224, 152, 18);
+}
+
+.operator:active {
+    background-color: rgb(218, 190, 136);
 }
 
 .percentage {
@@ -93,6 +116,12 @@ body {
 .digit {
     background-color: rgb(32, 31, 31);
     color: white;
+}
+.digit:hover {
+    background-color: rgb(15, 14, 14);
+}
+.digit:active {
+    background-color: rgb(7, 7, 7);
 }
 .nine { 
     grid-area: nine;

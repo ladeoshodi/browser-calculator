@@ -1,6 +1,17 @@
 let firstNumber;
 let secondNumber;
 let operator;
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll(".button");
+
+const operatorToSymbol = {
+    "add": "+",
+    "subtract": "-",
+    "divide": "/",
+    "multiply": "x",
+    "percentage": "%",
+    "dot": "."
+}
 
 // calculator functions
 function add(a, b) {
@@ -23,7 +34,7 @@ function percentage(a) {
     return a / 100;
 }
 
-function calculate(firstNumber, operator, secondNumber) {
+function operate(firstNumber, operator, secondNumber) {
     switch (operator) {
         case "add":
             return add(firstNumber, secondNumber);
@@ -42,3 +53,23 @@ function calculate(firstNumber, operator, secondNumber) {
     }
 
 }
+
+// display value
+function displayValue(value) {
+    display.textContent = value;
+}
+
+
+// add the click event listener to all buttons
+buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+        let buttonValue = e.target.value;
+        // if (Object.keys(operatorToSymbol).includes(buttonValue)) {
+        //     // todo: evaluate operation
+        //     displayValue(operatorToSymbol.buttonValue)
+        // } else {
+
+        // }
+        console.table(e.target.value)
+    });
+});
