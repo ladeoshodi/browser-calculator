@@ -13,13 +13,137 @@ body {
 
 .calculator-container {
     border: 2px solid black;
+    border-radius: 10px;
     width: 700px;
     aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "display display display display"
+    "cancel pos-neg percentage divide"
+    "seven eight nine multiply"
+    "four five six minus"
+    "one two three add"
+    "zero zero dot equals";
 }
+
+.display {
+    border: 4px double gray;
+    border-radius: 10px;
+    background-color: rgb(245, 242, 242);
+    grid-area: display;
+    font-size: 5em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.button {
+    font-size: 2em;
+    border-radius: 10px;
+}
+
+.cancel {
+    grid-area: cancel;
+    background-color: rgb(249, 48, 48);
+}
+
+.pos-neg {
+    grid-area: pos-neg;
+    background-color: silver
+}
+
+.dot {
+    grid-area: dot;
+    background-color: silver
+}
+
+.equals {
+    grid-area: equals;
+    background-color: silver
+}
+
+/* Operators styling */
+.operator {
+    background-color: rgb(255, 166, 0);
+}
+
+.percentage {
+    grid-area: percentage;
+}
+
+.divide {
+    grid-area: divide;
+}
+
+.multiply {
+    grid-area: multiply;
+}
+
+.minus {
+    grid-area: minus;
+}
+
+.add {
+    grid-area: add;
+}
+
+/* digits styling */
+.digit {
+    background-color: rgb(32, 31, 31);
+    color: white;
+}
+.nine { 
+    grid-area: nine;
+}
+
+.eight {
+    grid-area: eight;
+}
+.seven {
+    grid-area: seven
+}
+
+.six {
+    grid-area: six
+}
+
+.five {
+    grid-area: five;
+}
+
+.four {
+    grid-area: four;
+}
+
+.three {
+    grid-area: three;
+}
+
+.two {
+    grid-area: two;
+}
+
+.one {
+    grid-area: one;
+}
+
+.zero {
+    grid-area: zero;
+}
+
 
 /* adjust container size based on screen size */
 @media screen and (max-width: 450px) {
     .calculator-container {
         width: 300px;
+    }
+    .display {
+        font-size: 2em;
+    }
+    .button {
+        font-size: 1em;
+        border-radius: 5px;
     }
 }
