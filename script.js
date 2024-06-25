@@ -4,13 +4,13 @@ let operator;
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".button");
 
-const operatorToSymbol = {
-    "add": "+",
-    "subtract": "-",
-    "divide": "/",
-    "multiply": "x",
-    "percentage": "%",
-    "dot": "."
+const symbolToOperator = {
+    "+": "add",
+    "-": "subtract",
+    "/": "divide",
+    "x": "multiply",
+    "%": "percentage",
+    ".": "dot"
 }
 
 // calculator functions
@@ -64,12 +64,11 @@ function displayValue(value) {
 buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
         let buttonValue = e.target.value;
-        // if (Object.keys(operatorToSymbol).includes(buttonValue)) {
-        //     // todo: evaluate operation
-        //     displayValue(operatorToSymbol.buttonValue)
-        // } else {
-
-        // }
-        console.table(e.target.value)
+        if (Object.keys(symbolToOperator).includes(buttonValue)) {
+            // todo: evaluate operation
+            displayValue(symbolToOperator[buttonValue]);
+        } else {
+            displayValue(buttonValue);
+        }
     });
 });

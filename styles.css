@@ -21,7 +21,7 @@ body {
     grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 
     "display display display display"
-    "cancel pos-neg percentage divide"
+    "cancel neg percentage divide"
     "seven eight nine multiply"
     "four five six minus"
     "one two three add"
@@ -34,6 +34,8 @@ body {
     background-color: rgb(245, 242, 242);
     grid-area: display;
     font-size: 5em;
+    padding-right: 10px;
+    padding-bottom: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: end;
@@ -56,8 +58,8 @@ body {
     background-color: rgb(246, 109, 109);
 }
 
-.pos-neg {
-    grid-area: pos-neg;
+.neg {
+    grid-area: neg;
     background-color: silver
 }
 
@@ -71,11 +73,11 @@ body {
     background-color: silver
 }
 
-.pos-neg:hover, .dot:hover, .equals:hover {
+.neg:hover, .dot:hover, .equals:hover {
     background-color: rgb(160, 159, 159)
 }
 
-.pos-neg:active, .dot:active, .equals:active {
+.neg:active, .dot:active, .equals:active {
     background-color: rgb(131, 131, 131)
 }
 
