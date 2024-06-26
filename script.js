@@ -81,11 +81,13 @@ function calculatorLogic(e) {
             firstNumber += buttonValue;
             displayValue(firstNumber);
         }
-    } else if (Object.keys(symbolToOperator).includes(buttonValue)) {
-        // todo: evaluate operation
-        displayValue(symbolToOperator[buttonValue]);
-    } else {
-        displayValue(buttonValue);
+    }
+    // Save the value for the operator 
+    else if (
+        e.target.classList.contains("operator")
+        && firstNumber !== "" && secondNumber === "" 
+    ) { 
+        operator = buttonValue;
     }
 }
 
