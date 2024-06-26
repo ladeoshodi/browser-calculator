@@ -12,7 +12,7 @@ body {
 }
 
 .calculator-container {
-    border: 2px solid black;
+    border: 6px solid black;
     border-radius: 10px;
     width: 700px;
     aspect-ratio: 1;
@@ -29,7 +29,7 @@ body {
 }
 
 .display {
-    border: 4px double gray;
+    border: 10px solid gray;
     border-radius: 10px;
     background-color: rgb(245, 242, 242);
     grid-area: display;
