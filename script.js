@@ -4,15 +4,6 @@ let operator = "";
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".button");
 
-const symbolToOperator = {
-    "+": "add",
-    "-": "subtract",
-    "/": "divide",
-    "x": "multiply",
-    "%": "percentage",
-    ".": "dot"
-}
-
 // calculator functions
 function add(a, b) {
     return a + b;
@@ -34,7 +25,7 @@ function percentage(a) {
     return a / 100;
 }
 
-function operate(firstNumber, operator, secondNumber) {
+function calculate(firstNumber, operator, secondNumber) {
     switch (operator) {
         case "add":
             return add(firstNumber, secondNumber);
@@ -59,25 +50,31 @@ function displayValue(value) {
     display.textContent = value;
 }
 
-function resetMemory() {
+function reset(resetDisplay = true) {
     firstNumber = ""
     secondNumber = "";
     operator = "";
-    displayValue("");
+    if (resetDisplay) {
+        displayValue("0");
+    }
+}
+
+function isLessThanBillion(number) {
+    return number.length < 9 ? true : false
 }
 
 function calculatorLogic(e) {
     let buttonValue = e.target.value;
-    // resetMemory whenever the cancel button is pressed
+    // reset whenever the cancel button is pressed
     if (buttonValue === "cancel") {
-        resetMemory();
+        reset();
     } 
     // Save value for the firstNumber
     else if (
         e.target.classList.contains("digit")
         && secondNumber === "" && operator === "" 
     ) { 
-        if (firstNumber.length < 9) {
+        if (isLessThanBillion(firstNumber)) {
             firstNumber += buttonValue;
             displayValue(firstNumber);
         }
@@ -94,10 +91,20 @@ function calculatorLogic(e) {
         e.target.classList.contains("digit")
         && firstNumber !== "" && operator !== ""
     ) {
-        if (secondNumber.length < 9) {
+        if (isLessThanBillion(secondNumber)) {
             secondNumber += buttonValue;
             displayValue(secondNumber);
         }
+    }
+    // Evaluate operation
+    else if (
+        e.target.classList.contains("equals")
+        && firstNumber !== "" && operator !== "" && secondNumber !== ""
+    ) {
+        let result = calculate(Number(firstNumber), operator, Number(secondNumber));
+        displayValue(result);
+        reset(false);
+        firstNumber = result;
     }
 }
 
