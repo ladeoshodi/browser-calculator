@@ -42,6 +42,11 @@ body {
     overflow: hidden;
 }
 
+.operator-display {
+    font-size: 0.5em;
+    color: gray;
+}
+
 .button {
     font-size: 2em;
     border-radius: 10px;

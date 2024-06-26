@@ -1,20 +1,23 @@
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
-const display = document.querySelector(".display");
+let symbol;
+const resultDisplay = document.querySelector(".result-display");
+const operatorDisplay = document.querySelector(".operator-display");
 const buttons = document.querySelectorAll(".button");
 
 // display value
-function displayValue(value) {
-    display.textContent = value;
+function displayValue(location, value) {
+    location.textContent = value;
 }
 
-function reset(resetDisplay = true) {
+function reset(resetResultDisplay = true) {
     firstNumber = ""
     secondNumber = "";
     operator = "";
-    if (resetDisplay) {
-        displayValue("0");
+    displayValue(operatorDisplay, "");
+    if (resetResultDisplay) {
+        displayValue(resultDisplay, "0");
     }
 }
 
@@ -75,14 +78,14 @@ function calculatorLogic(e) {
         if(secondNumber === "" && operator === "") {
             if (isLessThanBillion(firstNumber)) {
                 firstNumber += buttonValue;
-                displayValue(firstNumber);
+                displayValue(resultDisplay, firstNumber);
             }
         } 
         // Save the value for the second operator 
         else if (firstNumber !== "" && operator !== "") {
             if (isLessThanBillion(secondNumber)) {
                 secondNumber += buttonValue;
-                displayValue(secondNumber);
+                displayValue(resultDisplay,secondNumber);
             }
         }
     }
@@ -91,10 +94,12 @@ function calculatorLogic(e) {
         if (firstNumber !== "" && buttonValue === "percentage") {
             operator = buttonValue;
             let result = calculate(Number(firstNumber), operator);
-            displayValue(result);
+            displayValue(resultDisplay, result);
             firstNumber = result;
         } else if (firstNumber !== "" && secondNumber === "") {
             operator = buttonValue;
+            symbol = e.target.textContent
+            displayValue(operatorDisplay, symbol);
         }
     }
 
@@ -105,7 +110,7 @@ function calculatorLogic(e) {
             firstNumber !== "" && operator !== "" && secondNumber !== ""
         ) {
             let result = calculate(Number(firstNumber), operator, Number(secondNumber));
-            displayValue(result);
+            displayValue(resultDisplay, result);
             reset(false);
             firstNumber = result;
         }
