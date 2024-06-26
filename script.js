@@ -89,6 +89,16 @@ function calculatorLogic(e) {
     ) { 
         operator = buttonValue;
     }
+    // Save the value for the second operator
+    else if (
+        e.target.classList.contains("digit")
+        && firstNumber !== "" && operator !== ""
+    ) {
+        if (secondNumber.length < 9) {
+            secondNumber += buttonValue;
+            displayValue(secondNumber);
+        }
+    }
 }
 
 // add the click event listener to all buttons
