@@ -59,16 +59,27 @@ function displayValue(value) {
     display.textContent = value;
 }
 
+function resetMemory() {
+    firstNumber = ""
+    secondNumber = "";
+    operator = "";
+    displayValue("");
+}
+
+function calculatorLogic(e) {
+    let buttonValue = e.target.value;
+    // resetMemory whenever the cancel button is pressed
+    if (buttonValue === "cancel") {
+        resetMemory();
+    } else if (Object.keys(symbolToOperator).includes(buttonValue)) {
+        // todo: evaluate operation
+        displayValue(symbolToOperator[buttonValue]);
+    } else {
+        displayValue(buttonValue);
+    }
+}
 
 // add the click event listener to all buttons
 buttons.forEach((button) => {
-    button.addEventListener("click", (e) => {
-        let buttonValue = e.target.value;
-        if (Object.keys(symbolToOperator).includes(buttonValue)) {
-            // todo: evaluate operation
-            displayValue(symbolToOperator[buttonValue]);
-        } else {
-            displayValue(buttonValue);
-        }
-    });
+    button.addEventListener("click", calculatorLogic);
 });
