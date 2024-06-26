@@ -4,6 +4,24 @@ let operator = "";
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".button");
 
+// display value
+function displayValue(value) {
+    display.textContent = value;
+}
+
+function reset(resetDisplay = true) {
+    firstNumber = ""
+    secondNumber = "";
+    operator = "";
+    if (resetDisplay) {
+        displayValue("0");
+    }
+}
+
+function isLessThanBillion(number) {
+    return number.length < 9 ? true : false
+}
+
 // calculator functions
 function add(a, b) {
     return a + b;
@@ -25,11 +43,11 @@ function percentage(a) {
     return a / 100;
 }
 
-function calculate(firstNumber, operator, secondNumber) {
+function calculate(firstNumber, operator, secondNumber=0) {
     switch (operator) {
         case "add":
             return add(firstNumber, secondNumber);
-            break;
+            break; 
         case "subtract":
             return subtract(firstNumber, secondNumber);
             break;
@@ -39,28 +57,12 @@ function calculate(firstNumber, operator, secondNumber) {
         case "divide":
             return divide(firstNumber, secondNumber);
             break;
+        case "percentage":
+            return percentage(firstNumber);
+            break;
         default:
             alert("Oops, I don't recognise that operation")
     }
-
-}
-
-// display value
-function displayValue(value) {
-    display.textContent = value;
-}
-
-function reset(resetDisplay = true) {
-    firstNumber = ""
-    secondNumber = "";
-    operator = "";
-    if (resetDisplay) {
-        displayValue("0");
-    }
-}
-
-function isLessThanBillion(number) {
-    return number.length < 9 ? true : false
 }
 
 function calculatorLogic(e) {
@@ -84,22 +86,29 @@ function calculatorLogic(e) {
             }
         }
     }
-    // Save the value for the operator 
-    else if (
-        e.target.classList.contains("operator")
-        && firstNumber !== "" && secondNumber === "" 
-    ) { 
-        operator = buttonValue;
+    // Save the value for the operator or calculate percentage
+    else if (e.target.classList.contains("operator")) {
+        if (firstNumber !== "" && buttonValue === "percentage") {
+            operator = buttonValue;
+            let result = calculate(Number(firstNumber), operator);
+            displayValue(result);
+            firstNumber = result;
+        } else if (firstNumber !== "" && secondNumber === "") {
+            operator = buttonValue;
+        }
     }
-    // Evaluate operation
-    else if (
-        e.target.classList.contains("equals")
-        && firstNumber !== "" && operator !== "" && secondNumber !== ""
-    ) {
-        let result = calculate(Number(firstNumber), operator, Number(secondNumber));
-        displayValue(result);
-        reset(false);
-        firstNumber = result;
+
+    // Evaluate operation when equal is pressed
+    else if (e.target.classList.contains("equals")) {
+        // calculate operations
+        if (
+            firstNumber !== "" && operator !== "" && secondNumber !== ""
+        ) {
+            let result = calculate(Number(firstNumber), operator, Number(secondNumber));
+            displayValue(result);
+            reset(false);
+            firstNumber = result;
+        }
     }
 }
 
