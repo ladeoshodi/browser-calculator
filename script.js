@@ -82,7 +82,7 @@ function calculate(firstNumber, operator, secondNumber) {
     }
 
     displayValue(resultDisplay, operation);
-    return operation;
+    return Number.isInteger(operation) ? operation : operation.toFixed(2);
 }
 
 function calculatorLogic(e) {
