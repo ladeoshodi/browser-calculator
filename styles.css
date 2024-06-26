@@ -39,7 +39,11 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: end;
-    overflow: hidden;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+}
+.result-display {
+    overflow: auto;
 }
 
 .operator-display {

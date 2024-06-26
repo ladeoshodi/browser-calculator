@@ -2,6 +2,7 @@ let firstNumber = "";
 let secondNumber = "";
 let operator = "";
 let symbol;
+let result;
 const resultDisplay = document.querySelector(".result-display");
 const operatorDisplay = document.querySelector(".operator-display");
 const buttons = document.querySelectorAll(".button");
@@ -46,26 +47,31 @@ function percentage(a) {
     return a / 100;
 }
 
-function calculate(firstNumber, operator, secondNumber=0) {
+function calculate(firstNumber, operator, secondNumber) {
+    let operation;
     switch (operator) {
         case "add":
-            return add(firstNumber, secondNumber);
+            operation = add(firstNumber, secondNumber);
             break; 
         case "subtract":
-            return subtract(firstNumber, secondNumber);
+            operation = subtract(firstNumber, secondNumber);
             break;
         case "multiply":
-            return multiply(firstNumber, secondNumber);
+            operation = multiply(firstNumber, secondNumber);
             break;
         case "divide":
-            return divide(firstNumber, secondNumber);
+            operation = divide(firstNumber, secondNumber);
             break;
         case "percentage":
-            return percentage(firstNumber);
+            operation = percentage(firstNumber);
             break;
         default:
             alert("Oops, I don't recognise that operation")
     }
+
+    displayValue(resultDisplay, operation);
+    reset(false);
+    return operation;
 }
 
 function calculatorLogic(e) {
@@ -89,30 +95,25 @@ function calculatorLogic(e) {
             }
         }
     }
-    // Save the value for the operator or calculate percentage
-    else if (e.target.classList.contains("operator")) {
-        if (firstNumber !== "" && buttonValue === "percentage") {
-            operator = buttonValue;
-            let result = calculate(Number(firstNumber), operator);
-            displayValue(resultDisplay, result);
-            firstNumber = result;
-        } else if (firstNumber !== "" && secondNumber === "") {
+    // Save the value for the operator
+    else if (e.target.classList.contains("operator")
+        && firstNumber !== "" && secondNumber === ""
+    ) {
             operator = buttonValue;
             symbol = e.target.textContent
             displayValue(operatorDisplay, symbol);
-        }
     }
-
     // Evaluate operation when equal is pressed
     else if (e.target.classList.contains("equals")) {
         // calculate operations
-        if (
-            firstNumber !== "" && operator !== "" && secondNumber !== ""
-        ) {
-            let result = calculate(Number(firstNumber), operator, Number(secondNumber));
-            displayValue(resultDisplay, result);
-            reset(false);
-            firstNumber = result;
+        if (firstNumber !== "" && operator !== "") {
+            if (secondNumber !== "") {
+                result = calculate(Number(firstNumber), operator, Number(secondNumber));
+                firstNumber = result;
+            } else if (operator === "percentage") {
+                result = calculate(Number(firstNumber), operator);
+                firstNumber = result;
+            }
         }
     }
 }
