@@ -1,6 +1,6 @@
-let firstNumber;
-let secondNumber;
-let operator;
+let firstNumber = "";
+let secondNumber = "";
+let operator = "";
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".button");
 
@@ -71,6 +71,16 @@ function calculatorLogic(e) {
     // resetMemory whenever the cancel button is pressed
     if (buttonValue === "cancel") {
         resetMemory();
+    } 
+    // Save value for the firstNumber
+    else if (
+        e.target.classList.contains("digit")
+        && secondNumber === "" && operator === "" 
+    ) { 
+        if (firstNumber.length < 9) {
+            firstNumber += buttonValue;
+            displayValue(firstNumber);
+        }
     } else if (Object.keys(symbolToOperator).includes(buttonValue)) {
         // todo: evaluate operation
         displayValue(symbolToOperator[buttonValue]);
