@@ -68,15 +68,20 @@ function calculatorLogic(e) {
     // reset whenever the cancel button is pressed
     if (buttonValue === "cancel") {
         reset();
-    } 
-    // Save value for the firstNumber
-    else if (
-        e.target.classList.contains("digit")
-        && secondNumber === "" && operator === "" 
-    ) { 
-        if (isLessThanBillion(firstNumber)) {
-            firstNumber += buttonValue;
-            displayValue(firstNumber);
+    } else if (e.target.classList.contains("digit")) {
+        // Save value for the firstNumber
+        if(secondNumber === "" && operator === "") {
+            if (isLessThanBillion(firstNumber)) {
+                firstNumber += buttonValue;
+                displayValue(firstNumber);
+            }
+        } 
+        // Save the value for the second operator 
+        else if (firstNumber !== "" && operator !== "") {
+            if (isLessThanBillion(secondNumber)) {
+                secondNumber += buttonValue;
+                displayValue(secondNumber);
+            }
         }
     }
     // Save the value for the operator 
@@ -85,16 +90,6 @@ function calculatorLogic(e) {
         && firstNumber !== "" && secondNumber === "" 
     ) { 
         operator = buttonValue;
-    }
-    // Save the value for the second operator
-    else if (
-        e.target.classList.contains("digit")
-        && firstNumber !== "" && operator !== ""
-    ) {
-        if (isLessThanBillion(secondNumber)) {
-            secondNumber += buttonValue;
-            displayValue(secondNumber);
-        }
     }
     // Evaluate operation
     else if (
