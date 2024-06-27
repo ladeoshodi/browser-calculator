@@ -108,6 +108,20 @@ function calculatorLogic(e) {
             }
         }
     }
+    // Logic for when the dot button is pressed
+    else if (e.target.classList.contains("dot")) {
+        if (secondNumber === "" && operator === "") {
+            if (!firstNumber.includes(".")) {
+                firstNumber += "."
+                displayValue(resultDisplay, firstNumber);
+            }
+        } else if (firstNumber !== "" && operator !== "") {
+            if (!secondNumber.includes(".")) {
+                secondNumber += "."
+                displayValue(resultDisplay, secondNumber);
+            }
+        }
+    }
     // Logic for when an operator button is pressed
     else if (e.target.classList.contains("operator")) {
         // calculate expression if first & second number and operator values are not empty
