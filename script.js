@@ -36,6 +36,16 @@ function isLessThanBillion(number) {
     return number.length < 9 ? true : false
 }
 
+function toggleNumberPolarity(number) {
+    let numberArray = number.split("");
+    if (number.includes("-")) {
+        numberArray.splice(0, 1);
+    } else {
+        numberArray.splice(0, 0, "-");
+    }
+    return numberArray.join("");
+}
+
 // calculator functions
 function add(a, b) {
     return a + b;
@@ -125,6 +135,16 @@ function calculatorLogic(e) {
                 secondNumber += "."
                 displayValue(resultDisplay, secondNumber);
             }
+        }
+    }
+    // Logic for when the negative button is pressed
+    else if (e.target.classList.contains("toggle-polarity")) {
+        if (secondNumber === "" && operator === "") {
+            firstNumber = toggleNumberPolarity(firstNumber);
+            displayValue(resultDisplay, firstNumber);
+        } else if (firstNumber !== "" && operator !== "") {
+            secondNumber = toggleNumberPolarity(secondNumber);
+            displayValue(resultDisplay, secondNumber);
         }
     }
     // Logic for when an operator button is pressed

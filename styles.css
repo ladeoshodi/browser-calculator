@@ -21,7 +21,7 @@ body {
     grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 
     "display display display display"
-    "cancel neg percentage divide"
+    "cancel toggle-polarity percentage divide"
     "seven eight nine multiply"
     "four five six minus"
     "one two three add"
@@ -68,8 +68,8 @@ body {
     background-color: rgb(246, 109, 109);
 }
 
-.neg {
-    grid-area: neg;
+.toggle-polarity {
+    grid-area: toggle-polarity;
     background-color: silver
 }
 
@@ -83,11 +83,11 @@ body {
     background-color: silver
 }
 
-.neg:hover, .dot:hover, .equals:hover {
+.toggle-polarity:hover, .dot:hover, .equals:hover {
     background-color: rgb(160, 159, 159)
 }
 
-.neg:active, .dot:active, .equals:active {
+.toggle-polarity:active, .dot:active, .equals:active {
     background-color: rgb(131, 131, 131)
 }
 
