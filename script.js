@@ -1,7 +1,6 @@
 let firstNumber = "";
 let secondNumber = "";
 let operator = "";
-let symbol;
 let result;
 const resultDisplay = document.querySelector(".result-display");
 const operatorDisplay = document.querySelector(".operator-display");
@@ -93,8 +92,14 @@ function calculatorLogic(e) {
     } 
     // Logic for when a digit is pressed
     else if (e.target.classList.contains("digit")) {
+        // Replace the first number if result already exists
+        if (secondNumber === "" && operator === "" && result !== "") {
+            firstNumber = buttonValue;
+            result = "";
+            displayValue(resultDisplay, firstNumber);
+        }
         // Save value for the firstNumber
-        if(secondNumber === "" && operator === "") {
+        else if(secondNumber === "" && operator === "") {
             if (isLessThanBillion(firstNumber)) {
                 firstNumber += buttonValue;
                 displayValue(resultDisplay, firstNumber);
@@ -130,14 +135,14 @@ function calculatorLogic(e) {
             // Update the operator to current pressed operation after calculation
             operator = buttonValue;
             // reset calculator values with these defaults
-            reset({firstNumberArg: result, operatorArg: operator, resultArg: result});
+            reset({firstNumberArg: String(result), operatorArg: operator, resultArg: String(result)});
         } 
         // calculate %percentages immediately
         else if (firstNumber !== "" && buttonValue === "percentage") {
             operator = buttonValue;
             displayValue(operatorDisplay, operatorToSymbol[operator]);
             result = calculate(Number(firstNumber), operator);
-            reset({resultArg: result});
+            reset({resultArg: String(result)});
         }
         // Save/update the value for the operator
         else if (firstNumber !== "" && secondNumber === "") {
@@ -151,7 +156,7 @@ function calculatorLogic(e) {
         if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
                 result = calculate(Number(firstNumber), operator, Number(secondNumber));
                 // reset to default except the result display after every evaluation when the equal to sign is pressed
-                reset({resultArg: result});
+                reset({firstNumberArg: String(result), resultArg: String(result)});
         }
     }
 }
