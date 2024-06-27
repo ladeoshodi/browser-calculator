@@ -90,7 +90,9 @@ function calculatorLogic(e) {
     // reset whenever the cancel button is pressed
     if (buttonValue === "cancel") {
         reset();
-    } else if (e.target.classList.contains("digit")) {
+    } 
+    // Logic for when a digit is pressed
+    else if (e.target.classList.contains("digit")) {
         // Save value for the firstNumber
         if(secondNumber === "" && operator === "") {
             if (isLessThanBillion(firstNumber)) {
@@ -106,30 +108,36 @@ function calculatorLogic(e) {
             }
         }
     }
-    // Save the value for the operator
-    else if (
-        e.target.classList.contains("operator")
-        && firstNumber !== "" && secondNumber === ""
-    ) {
+    // Logic for when an operator button is pressed
+    else if (e.target.classList.contains("operator")) {
+        // calculate expression if first & second number and operator values are not empty
+        if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
+            result = calculate(Number(firstNumber), operator, Number(secondNumber));
+            // Update the operator to current pressed operation after calculation
+            operator = buttonValue;
+            // reset calculator values with these defaults
+            reset({firstNumberArg: result, operatorArg: operator, resultArg: result});
+        } 
+        // calculate %percentages immediately
+        else if (firstNumber !== "" && buttonValue === "percentage") {
             operator = buttonValue;
             displayValue(operatorDisplay, operatorToSymbol[operator]);
+            result = calculate(Number(firstNumber), operator);
+            reset({resultArg: result});
+        }
+        // Save/update the value for the operator
+        else if (firstNumber !== "" && secondNumber === "") {
+            operator = buttonValue;
+            displayValue(operatorDisplay, operatorToSymbol[operator]);
+        }   
     }
-    // Evaluate operation when equal is pressed
-    else if (
-        e.target.classList.contains("equals") 
-        || e.target.classList.contains("operator")
-    ) {
-        // calculate operations
-        if (firstNumber !== "" && operator !== "") {
-            if (secondNumber !== "") {
+    // Logic for when the equal to button is pressed
+    else if (e.target.classList.contains("equals")) {
+        // evaluate operation
+        if (firstNumber !== "" && operator !== "" && secondNumber !== "") {
                 result = calculate(Number(firstNumber), operator, Number(secondNumber));
-                // Update the operator when pressed again
-                operator = buttonValue;
-                reset({firstNumberArg: result, operatorArg: operator, resultArg: result});
-            } else if (operator === "percentage") {
-                result = calculate(Number(firstNumber), operator);
-                reset({firstNumberArg: result, resultArg: result});
-            }
+                // reset to default except the result display after every evaluation when the equal to sign is pressed
+                reset({resultArg: result});
         }
     }
 }
